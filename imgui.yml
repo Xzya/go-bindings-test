@@ -1,0 +1,32 @@
+---
+GENERATOR:
+  PackageName: imgui
+  PackageDescription:
+  PackageLicense:
+  Includes: ["cimgui.h"]
+  Options:
+    SafeStrings: true
+
+PARSER:
+  IncludePaths: ["/usr/local/include", "/usr/include", "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include/"]
+  SourcesPaths: ["imgui/cimgui.h"]
+  Defines:
+    CIMGUI_DEFINE_ENUMS_AND_STRUCTS: 1
+
+TRANSLATOR:
+  ConstRules:
+    defines: expand
+    enum: expand
+  PtrTips:
+    function:
+      - {target: foo, tips: [ref]}
+  Rules:
+    global:
+      - {action: accept, from: 'ImVec2'}
+      - {action: accept, from: 'foo'}
+      - {transform: export}
+    private:
+      - {transform: unexport}
+    post-global:
+      - {action: replace, from: _$}
+      - {load: snakecase}
